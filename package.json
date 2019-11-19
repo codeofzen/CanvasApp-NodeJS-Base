@@ -2,8 +2,9 @@
     "name": "utility-app",
     "version": "0.0.1",
     "dependencies": {
+        "ejs": "*",
         "express": "3.3.x",
-        "ejs": "*"
+        "morgan": "^1.9.1"
     },
     "engines": {
         "node": "0.10.x",

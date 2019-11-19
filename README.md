@@ -30,3 +30,31 @@ There are more ways to configure the Canvas App usage, this is the quicker.
 	SF_CANVASAPP_CLIENT_SECRET: XXXXXXXXX
 
 Go to http://enreeco.blogspot.it/2013/11/salesforce-canvas-nodejs-set-up-minimum.html for a complete description.
+
+# Fineway Setup
+
+To do a first simple test, it is best to start the application on your local machine and use *ngrok* to expose the local applicaton on the internet and configure it in the Salesforce Sandbox environment.
+
+### How to install ngrok
+
+
+```
+# install Homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# install ngrok
+brew cask install ngrok
+```
+
+### How to start and expose the Canvas App 
+
+First, start the app and expose it on the internet.
+
+```
+# start node app
+SF_CANVASAPP_CLIENT_SECRET="XXX-XXX" node app.js
+# expose 
+ngrok http 5000
+```
+
+Second, configure the new domain in Salesforce.
