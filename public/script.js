@@ -6,7 +6,9 @@
    scope.fw.on_clear_content = function() {
       console.log("FW - Clear Content");
       var content_node = document.getElementById("fw-sample-content")
-      content_node.innerHTML = '';
+      if (content_node.hasChildNodes()) {
+         content_node.childNodes.forEach(function(e) {content_node.removeChild(e)} );
+      }
       scope.fw.adjust_frame_size();
    }
 
