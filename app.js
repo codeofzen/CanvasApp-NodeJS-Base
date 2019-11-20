@@ -25,6 +25,10 @@ app.configure(function() {
     
 });
 
+
+/**
+ * Index route which will be called after the initial POST is sent
+ */
 app.get('/',function(req,res){
     //get the canvas details from session (if any)
     var canvasDetails = sftools.getCanvasDetails(req);
@@ -32,14 +36,11 @@ app.get('/',function(req,res){
     res.render('index',{canvasDetails : canvasDetails});
 });
 
-app.get('/canvas/callback2',function(req,res){
-    //get the canvas details from session (if any)
-    var canvasDetails = sftools.getCanvasDetails(req);
-    //the page knows if the user is logged into SF
-    res.render('index',{canvasDetails : canvasDetails});
-});
 
-//canvas callback
+/**
+ * Initial POST that provided the signed request with all information necessary
+ * to setup the SDK.
+ */
 app.post('/canvas/callback', function(req,res){
     console.log(req.body);
     sftools.canvasCallback(req.body, SF_CANVASAPP_CLIENT_SECRET, function(error, canvasRequest){
@@ -51,6 +52,19 @@ app.post('/canvas/callback', function(req,res){
         sftools.saveCanvasDetailsInSession(req,canvasRequest);
         return res.redirect('/');
     });
+});
+
+
+/**
+ * Callback that has to be specified in the OAuth section. But seems not to be 
+ * called in out flow. Still, OAuth settings are required to make the Canvas App
+ * work.
+ */
+app.get('/canvas/callback_oauth',function(req,res){
+    //get the canvas details from session (if any)
+    var canvasDetails = sftools.getCanvasDetails(req);
+    //the page knows if the user is logged into SF
+    res.render('index',{canvasDetails : canvasDetails});
 });
 
 exports.server = app.listen(PORT, function() {
